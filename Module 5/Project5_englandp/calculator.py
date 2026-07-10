@@ -16,9 +16,28 @@
 class Calculator:
     """Class that performs the mathematical calculations requested through the calculator."""
 
+    # No __init__ because we don't need values stored.
+
     def add(self, num1, num2):
         """Return the sum of the two numbers."""
         return num1 + num2
 
     def subtract(self, num1, num2):
-        ""
+        """Return the difference of the two numbers."""
+        return num1 - num2
+
+    def multiply(self, num1, num2):
+        """Return the product of the two numbers."""
+        return num1 * num2
+
+    def divide(self, num1, num2):
+        """Return the quotient of the two numbers."""
+        return num1 / num2
+
+    def modulo(self, num1, num2):
+        """Return the remainder of the two numbers after division."""
+        return num1 % num2
+
+    def power(self, num1, num2):
+        """Return num1 raised to the power num2."""
+        return num1 ** num2
