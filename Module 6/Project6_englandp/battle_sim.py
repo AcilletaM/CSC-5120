@@ -21,6 +21,7 @@
 # Bring in the class definitions
 from warrior import Warrior
 from mugwump import Mugwump
+from druid import Druid
 from character import Character
 from die import Die
 
@@ -62,12 +63,15 @@ def main():  # not testable
 def intro():  # not testable
     """Display the introduction and rules of the game."""
     print("Welcome to Battle Simulator 3000! The world's most low-tech battle simulator!\n"
-          "Valiant Warriors and Evil Mugwumps face off in epic combat.\n"
+          "Valiant Warriors, Neutral Druids, and Evil Mugwumps face off in epic combat.\n"
           "You choose what the player and the computer each fight as,\n"
           "then trade blows until only one stands.\n"
           "\nThe Warrior swings a Trusty Sword (2d8) or raises a Shield of Light (1d4).\n"
           "The Mugwump rends with Razor-Sharp Claws (2d6), bites with Fangs of Death (3d6),\n"
-          "or licks its wounds to heal.\n")
+          "or licks its wounds to heal.\n"
+          "The Druid summons a swarm of locusts (2d6), swings a might oak club (2d4),\n"
+          "or heals through natural medicines.\n")
+
 
 def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
     """Ask which character type to use for a role and return the new combatant."""
@@ -75,12 +79,16 @@ def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
     while choice <= 0 or choice > 2:
         choice = int(input(f"Choose the {rolename} character:\n"
                            "1. Warrior\n"
-                           "2. Mugwump\n"
+                           "2. Druid\n"
+                           "3. Mugwump\n"
                            "Enter choice: "))
 
-    if (choice == 1):
+    if choice == 1:
         return Warrior(isplayer)
-    return Mugwump(isplayer)
+    elif choice == 2:
+        return Druid(isplayer)
+    else:
+        return Mugwump(isplayer)
 
 def battle(player: Character, computer: Character) -> str:  # not testable (randomness + I/O)
     """Individual round of combat.  Returns 'player' or 'computer' if they are the victor otherwise it returns 'none'."""
@@ -143,9 +151,11 @@ def victory(player: Character, computer: Character, victor: str) -> None:  # not
     """Announce the winner, keeping in mind the player vs computer battle and the different combinations possible."""
     playerwon = (victor == "player")
     playeriswarrior = isinstance(player, Warrior)
+    playerisdruid = isinstance(player, Druid)
     opponentiswarrior = isinstance(computer, Warrior)
+    opponentisdruid = isinstance(computer, Druid)
 
-    if playeriswarrior and not opponentiswarrior:
+    if playeriswarrior and not opponentiswarrior and not opponentisdruid:
         # The Valiant Warrior (player) against an evil Mugwump (AI)
         if playerwon:
             print("You, the Valiant Warrior, have slain the evil Mugwump! The citizens "
@@ -153,7 +163,7 @@ def victory(player: Character, computer: Character, victor: str) -> None:  # not
         else:
             print("The evil Mugwump has bested you, Valiant Warrior, mocking your feeble "
                   "defense as it feasts on the villagers. The kingdom weeps.")
-    elif not playeriswarrior and opponentiswarrior:
+    elif not playeriswarrior and opponentiswarrior and not opponentisdruid:
         # The Valiant Warrior (AI) against an evil Mugwump (player)
         if playerwon:
             print("You chose the path of evil -- and it paid off. You have vanquished "
@@ -171,6 +181,30 @@ def victory(player: Character, computer: Character, victor: str) -> None:  # not
             print("Two Valiant Warriors turned on each other, and you broke. "
                   "You slink away branded a coward while the other claims a "
                   "pyrrhic victory.")
+    elif playeriswarrior and opponentisdruid:
+        # The Valiant Warrior (player) against Neutral Druid (AI)
+        if playerwon:
+            print("You, a Valiant Warrior, fighting for people not nature.  You have easily "
+                  "overcome the feeble Druid. Your opponent runs away, cursing your name.")
+        else:
+            print("Nature is being destroyed by the thoughtless villagers, but their Warrior has protected them. "
+                  "You must return to the woods to meditate with nature.")
+    elif not playeriswarrior and not playerisdruid and opponentisdruid:
+        # The Evil Mugwump (player) against Neutral Druid (AI)
+        if playerwon:
+            print("You, a merciless beast, are a force of nature the Druids cannot contain.  You feast on Druid "
+                  "for lunch, giving thanks their Vegan lifestyle produces such excellent flavor.")
+        else:
+            print("Nature is a powerful force and Druids are masters of that force. "
+                  "You have no choice but to leave, with nothing but a handful of locusts to satiate your hunger.")
+    elif playerisdruid and opponentisdruid:
+        # The Neutral Druid (player) against another Neutral Druid (AI)
+        if playerwon:
+            print("Two spiritual Druids, clashing to show who loves their goddess most.  "
+                  "You have earned her blessing. Your opponent breaks down in tears, spirit broken.")
+        else:
+            print("Two kindly Druids, instead of helping each other, tried to curry favor more than the other, and you "
+                  "didn't do enough.  Your faith is shaken.")
     else:
         # An evil Mugwump (player) against an evil Mugwump (AI)
         if playerwon:
