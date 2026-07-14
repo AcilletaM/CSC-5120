@@ -194,6 +194,14 @@ def victory(player: Character, computer: Character, victor: str) -> None:  # not
         else:
             print("Nature is being destroyed by the thoughtless villagers, but their Warrior has protected them. "
                   "You must return to the woods to meditate with nature.")
+    elif not playeriswarrior and not playerisdruid and opponentisdruid:
+        # The Evil Mugwump (player) against Neutral Druid (AI)
+        if playerwon:
+            print("You, a merciless beast, are a force of nature the Druids cannot contain.  You feast on Druid "
+                  "for lunch, giving thanks their Vegan lifestyle produces such excellent flavor.")
+        else:
+            print("Nature is a powerful force and Druids are masters of that force. "
+                  "You have no choice but to leave, with nothing but a handful of locusts to satiate your hunger.")
     elif playerisdruid and opponentisdruid:
         # The Neutral Druid (player) against another Neutral Druid (AI)
         if playerwon:
