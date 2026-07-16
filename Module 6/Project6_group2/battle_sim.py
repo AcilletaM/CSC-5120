@@ -23,6 +23,7 @@ from warrior import Warrior
 from mugwump import Mugwump
 from character import Character
 from die import Die
+from wizard import Wizard
 
 # The dungeon master uses a 10-sided die to roll for initiative each round.
 d10 = Die(10)
@@ -72,15 +73,19 @@ def intro():  # not testable
 def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
     """Ask which character type to use for a role and return the new combatant."""
     choice = 0
-    while choice <= 0 or choice > 2:
+    while choice <= 0 or choice > 3:
         choice = int(input(f"Choose the {rolename} character:\n"
                            "1. Warrior\n"
                            "2. Mugwump\n"
+                           "3. Wizard\n"
                            "Enter choice: "))
 
     if (choice == 1):
         return Warrior(isplayer)
-    return Mugwump(isplayer)
+    elif (choice == 2):
+        return Wizard(isplayer)
+    else:
+        return Mugwump(isplayer)
 
 def battle(player: Character, computer: Character) -> str:  # not testable (randomness + I/O)
     """Individual round of combat.  Returns 'player' or 'computer' if they are the victor otherwise it returns 'none'."""
