@@ -22,7 +22,7 @@ from character import Character
 @pytest.fixture
 def mugwump():
     """Provide a fresh computer-controlled Mugwump for each test (fixture)."""
-    return Mugwump(False)
+    return Mugwump(False, "test")
 
 
 def testmugwumpisacharacter(mugwump):
