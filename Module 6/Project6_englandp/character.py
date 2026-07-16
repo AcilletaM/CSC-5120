@@ -1,9 +1,7 @@
-# CSC 5120 Module 4 Project
+# CSC 5120 Module 6 Project
 # Paul England
 # Instructions
-# The goal of the fourth project is to review the concepts we have learned thus far. We will apply the concepts of
-# inheritance (also called duck typing) and testing to the Battle Sim example Lab we worked through in class. Your
-# project will have several files.
+# The goal of the sixth project is modify your Mugwump project from Module 4 with a group, using a Git repository to collaborate on the code.
 #
 # This file contains the definitions of the abstract character class.  It contains the constructor, takedamage, attack,
 # _promptforattack, _chooseaiattack, and _performattack methods.  It is based on the warrior and mugwump files provided
@@ -15,6 +13,7 @@ from die import Die
 
 class Character(ABC):
     """Abstract base class shared by every combatant."""
+    winmessages: dict[tuple[str, str], str] = {}
 
     def __init__(self, isplayer):
         self.isplayer = isplayer
@@ -39,6 +38,20 @@ class Character(ABC):
         else:
             attacktype = self._chooseaiattack()
         return self._performattack(attacktype)
+
+    def defeats(self, loser: "Character", perspective: str) -> str:
+        """Handles the messaging when the player or computer wins.  Uses winmessages defined in the individual classes or uses a generic default."""
+        # Get the loser's class name
+        losername = type(loser).__name__
+        key = (perspective, losername)
+
+        # Use the messages from the individual class
+        if key in self.winmessages:
+            return self.winmessages[key]
+
+        # Default message.
+        winnername = type(self).__name__
+        return f"The {winnername.lower()} defeats the {losername.lower()}."
 
     @abstractmethod
     def _promptforattack(self) -> int:

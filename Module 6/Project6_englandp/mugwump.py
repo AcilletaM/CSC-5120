@@ -15,6 +15,19 @@ from die import Die
 
 class Mugwump(Character):
     """Fierce Mugwump looking for a fight.  Can be controlled by the player or AI."""
+    winmessages = {
+        ("player",   "Warrior"): "Your Mugwump beats Warrior",
+        ("player",   "Mugwump"):  "Your Mugwump beats Mugwump",
+        ("player",   "Druid"):  "Your Mugwump beats Druid",
+        ("player",   "Salamanda"):  "Your Mugwump beats Salamanda",
+        ("player",   "Wizard"):  "Your Mugwump beats Wizard",
+        ("computer", "Warrior"): "Your Mugwump loses to Warrior",
+        ("computer", "Mugwump"):  "Your Mugwump loses to Mugwump",
+        ("computer", "Druid"):  "Your Mugwump loses to Druid",
+        ("computer", "Salamanda"):  "Your Mugwump loses to Salamanda",
+        ("computer", "Wizard"):  "Your Mugwump loses to Wizard",
+    }
+
     def __init__(self, isplayer): # for homework 4 #, aiController:bool):
         super().__init__(isplayer)
 

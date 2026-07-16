@@ -149,71 +149,12 @@ def initiative() -> int:  # testable (returns 1 or 2)
 
 def victory(player: Character, computer: Character, victor: str) -> None:  # not testable
     """Announce the winner, keeping in mind the player vs computer battle and the different combinations possible."""
-    playerwon = (victor == "player")
-    playeriswarrior = isinstance(player, Warrior)
-    playerisdruid = isinstance(player, Druid)
-    opponentiswarrior = isinstance(computer, Warrior)
-    opponentisdruid = isinstance(computer, Druid)
-
-    if playeriswarrior and not opponentiswarrior and not opponentisdruid:
-        # The Valiant Warrior (player) against an evil Mugwump (AI)
-        if playerwon:
-            print("You, the Valiant Warrior, have slain the evil Mugwump! The citizens "
-                  "cheer and lay out a feast -- the kingdom is saved (again)!")
-        else:
-            print("The evil Mugwump has bested you, Valiant Warrior, mocking your feeble "
-                  "defense as it feasts on the villagers. The kingdom weeps.")
-    elif not playeriswarrior and opponentiswarrior and not opponentisdruid:
-        # The Valiant Warrior (AI) against an evil Mugwump (player)
-        if playerwon:
-            print("You chose the path of evil -- and it paid off. You have vanquished "
-                  "the Valiant Warrior.  A meal of villagers awaits you.")
-        else:
-            print("You chose to play the monster, but good still triumphed. "
-                  "No villagers will be eaten, at least for today. "
-                  "It was rough back then.")
-    elif playeriswarrior and opponentiswarrior:
-        # The Valiant Warrior (player) against another Valiant Warrior (AI)
-        if playerwon:
-            print("Two Valiant Warriors, fighting for pride instead of principle.  Still "
-                  "you prevailed. Your opponent flees, forever branded a coward.")
-        else:
-            print("Two Valiant Warriors turned on each other, and you broke. "
-                  "You slink away branded a coward while the other claims a "
-                  "pyrrhic victory.")
-    elif playeriswarrior and opponentisdruid:
-        # The Valiant Warrior (player) against Neutral Druid (AI)
-        if playerwon:
-            print("You, a Valiant Warrior, fighting for people not nature.  You have easily "
-                  "overcome the feeble Druid. Your opponent runs away, cursing your name.")
-        else:
-            print("Nature is being destroyed by the thoughtless villagers, but their Warrior has protected them. "
-                  "You must return to the woods to meditate with nature.")
-    elif not playeriswarrior and not playerisdruid and opponentisdruid:
-        # The Evil Mugwump (player) against Neutral Druid (AI)
-        if playerwon:
-            print("You, a merciless beast, are a force of nature the Druids cannot contain.  You feast on Druid "
-                  "for lunch, giving thanks their Vegan lifestyle produces such excellent flavor.")
-        else:
-            print("Nature is a powerful force and Druids are masters of that force. "
-                  "You have no choice but to leave, with nothing but a handful of locusts to satiate your hunger.")
-    elif playerisdruid and opponentisdruid:
-        # The Neutral Druid (player) against another Neutral Druid (AI)
-        if playerwon:
-            print("Two spiritual Druids, clashing to show who loves their goddess most.  "
-                  "You have earned her blessing. Your opponent breaks down in tears, spirit broken.")
-        else:
-            print("Two kindly Druids, instead of helping each other, tried to curry favor more than the other, and you "
-                  "didn't do enough.  Your faith is shaken.")
+    if victor == "player":
+        winner, loser = player, computer
     else:
-        # An evil Mugwump (player) against an evil Mugwump (AI)
-        if playerwon:
-            print("Two Mugwumps clashed in the dark and you proved the mightier beast. "
-                  "You feast on your fallen rival, while the villagers cower in fear, awaiting "
-                  "their fate.")
-        else:
-            print("You chose the way of the monster and met a heinous fate. "
-                  "No one will remember you or this battle.")
+        winner, loser = computer, player
+
+    print(winner.defeats(loser, victory)) 
 
 def playagain() -> bool:  # testable
     """Ask whether to play again; return True for yes, False otherwise."""

@@ -15,6 +15,18 @@ from die import Die
 
 class Warrior(Character):
     """Mighty fighter looking for adventure and treasure.  Can be controlled by the player or AI."""
+    winmessages = {
+        ("player",   "Warrior"): "Your Warrior beats Warrior",
+        ("player",   "Mugwump"):  "Your Warrior beats Mugwump",
+        ("player",   "Druid"):  "Your Warrior beats Druid",
+        ("player",   "Salamanda"):  "Your Warrior beats Salamanda",
+        ("player",   "Wizard"):  "Your Warrior beats Wizard",
+        ("computer", "Warrior"): "Your Warrior loses to Warrior",
+        ("computer", "Mugwump"):  "Your Warrior loses to Mugwump",
+        ("computer", "Druid"):  "Your Warrior loses to Druid",
+        ("computer", "Salamanda"):  "Your Warrior loses to Salamanda",
+        ("computer", "Wizard"):  "Your Warrior loses to Wizard",
+    }
 
     def __init__(self, isplayer):
         super().__init__(isplayer)
