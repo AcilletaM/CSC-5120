@@ -15,8 +15,8 @@ from die import Die
 
 class Salamanda(Character):
     """Slimy Salamanda looking to slither"""
-    def __init__(self, isplayer): # for homework 4 #, aiController:bool):
-        super().__init__(isplayer)
+    def __init__(self, isplayer, name): # for homework 4 #, aiController:bool):
+        super().__init__(isplayer, name)
 
         # slamanda-specific dice, the rest come from the Character class
         self.d6 = Die(6)

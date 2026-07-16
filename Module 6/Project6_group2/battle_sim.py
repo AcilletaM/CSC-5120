@@ -19,7 +19,7 @@
 #   - 30 points: Present the user with a choice for each of the two player objects *so it could be a player controlled
 #     warrior vs. an ai controlled mugwump, or two mugwumps, two warriors, player mugwump and ai warrior).
 # The game should play out the same once the user has made the initial choices about player types.
-from salamanda import Salamanda
+
 # Bring in the class definitions
 from warrior import Warrior
 from mugwump import Mugwump
@@ -27,6 +27,8 @@ from druid import Druid
 from character import Character
 from die import Die
 from wizard import Wizard
+from salamanda import Salamanda
+import fileio
 
 # The dungeon master uses a 10-sided die to roll for initiative each round.
 d10 = Die(10)
@@ -59,6 +61,7 @@ def main():  # not testable
             if (victor != "none"):
                 report(player, computer)
                 victory(player, computer, victor)
+                fileio.save_data(player)
                 keep_playing = playagain()
 
     print("Thank you for playing Battle Simulator 3000!")
@@ -79,6 +82,7 @@ def intro():  # not testable
 def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
     """Ask which character type to use for a role and return the new combatant."""
     choice = 0
+    name = None
     while choice <= 0 or choice > 5:
         choice = int(input(f"Choose the {rolename} character:\n"
                            "1. Warrior\n"
@@ -88,16 +92,22 @@ def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
                            "5. Mugwump\n"
                            "Enter choice: "))
 
-    if) choice) == 1:
-        return Warrior(isplayer)
+    while name is None:
+        name = input(f"What is the {rolename}'s name? ")
+        if name == "":
+            print("Name cannot be blank.")
+            name = None
+
+    if choice == 1:
+        return Warrior(isplayer, name)
     elif choice == 2:
-        return Druid(isplayer)
+        return Druid(isplayer, name)
     elif choice == 3:
-        return Wizard(isplayer)
+        return Wizard(isplayer, name)
     elif choice == 4:
-        return Salamanda(isplayer)
+        return Salamanda(isplayer, name)
     else:
-        return Mugwump(isplayer)
+        return Mugwump(isplayer, name)
 
 def battle(player: Character, computer: Character) -> str:  # not testable (randomness + I/O)
     """Individual round of combat.  Returns 'player' or 'computer' if they are the victor otherwise it returns 'none'."""

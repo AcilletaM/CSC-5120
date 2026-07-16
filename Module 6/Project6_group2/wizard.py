@@ -7,8 +7,8 @@ from die import Die
 
 class Wizard(Character):
     """Magical wizard.  Can be controlled by the player or AI."""
-    def __init__(self, isplayer): # for homework 4 #, aiController:bool):
-        super().__init__(isplayer)
+    def __init__(self, isplayer, name): # for homework 4 #, aiController:bool):
+        super().__init__(isplayer, name)
 
         # Wizard-specific dice, the rest come from the Character class
         self.d6 = Die(6)
@@ -17,6 +17,7 @@ class Wizard(Character):
         # Wizard uses six d10 to calculate its starting hit points.
         self.maxhitpoints = self.d10.roll() + self.d10.roll() + self.d10.roll() + self.d10.roll() + self.d10.roll() + self.d10.roll()
         self.hitpoints = self.maxhitpoints
+        self.bonechill = False
 
     def _promptforattack(self) -> int:
         """Ask the player if they wish to use the firebolt, bonechill, or heal."""
@@ -53,11 +54,13 @@ class Wizard(Character):
                 print("The Wizard misses with its firebolt")
         # 2 = bonechill, needs to roll a 16 or more to hit, can cause up to 18 hp of damage.
         elif (attacktype == 2):
-            if (self.d20.roll() >= 16):
+            if self.bonechill==True:
+                self.bonechill = False
                 damage = self.d6.roll() + self.d6.roll() + self.d6.roll()
                 print(f"The Wizard hits with bonechill for {damage}")
             else:
-                print("The Wizard misses with bonechill")
+                self.bonechill = True
+                print("The Wizard charges bonechill")
         # 3 = heals, can heal up to 6 hp.
         else:
             damage = -1 * self.d6.roll()

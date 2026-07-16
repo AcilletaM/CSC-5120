@@ -16,12 +16,13 @@ from die import Die
 class Character(ABC):
     """Abstract base class shared by every combatant."""
 
-    def __init__(self, isplayer):
+    def __init__(self, isplayer, name="Hal 9000"):
         self.isplayer = isplayer
         self.d20 = Die(20)
         self.d10 = Die(10)
         self.maxhitpoints = 0
         self.hitpoints = 0
+        self.name = name
 
     def takedamage(self, amount):
         """Apply damage from the attack or the healing.  Either the attack takes the HP to 0 or the character is healed up to the max HP."""

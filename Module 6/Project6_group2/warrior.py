@@ -16,8 +16,8 @@ from die import Die
 class Warrior(Character):
     """Mighty fighter looking for adventure and treasure.  Can be controlled by the player or AI."""
 
-    def __init__(self, isplayer):
-        super().__init__(isplayer)
+    def __init__(self, isplayer, name):
+        super().__init__(isplayer, name)
 
         # Warrior-specific dice, the rest come from the Character class
         self.d8 = Die(8)
