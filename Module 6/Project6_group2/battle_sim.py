@@ -1,5 +1,7 @@
 # CSC 5120 Module 4 Project
 # Paul England
+# Andrew Davis
+# James Splingaire
 # Instructions
 # The goal of the fourth project is to review the concepts we have learned thus far. We will apply the concepts of
 # inheritance (also called duck typing) and testing to the Battle Sim example Lab we worked through in class. Your
@@ -17,7 +19,7 @@
 #   - 30 points: Present the user with a choice for each of the two player objects *so it could be a player controlled
 #     warrior vs. an ai controlled mugwump, or two mugwumps, two warriors, player mugwump and ai warrior).
 # The game should play out the same once the user has made the initial choices about player types.
-
+from salamanda import Salamanda
 # Bring in the class definitions
 from warrior import Warrior
 from mugwump import Mugwump
@@ -77,21 +79,23 @@ def intro():  # not testable
 def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
     """Ask which character type to use for a role and return the new combatant."""
     choice = 0
-    while choice <= 0 or choice > 3:
+    while choice <= 0 or choice > 5:
         choice = int(input(f"Choose the {rolename} character:\n"
                            "1. Warrior\n"
                            "2. Druid\n"
                            "3. Wizard\n"
-                           "5. Salamanda\n"
-                           "6. Mugwump\n"
-                           "Enter choice: "
+                           "4. Salamanda\n"
+                           "5. Mugwump\n"
+                           "Enter choice: "))
 
     if) choice) == 1:
         return Warrior(isplayer)
     elif choice == 2:
         return Druid(isplayer)
-    elif (choice == 2):
+    elif choice == 3:
         return Wizard(isplayer)
+    elif choice == 4:
+        return Salamanda(isplayer)
     else:
         return Mugwump(isplayer)
 
