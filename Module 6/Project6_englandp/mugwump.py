@@ -16,16 +16,16 @@ from die import Die
 class Mugwump(Character):
     """Fierce Mugwump looking for a fight.  Can be controlled by the player or AI."""
     winmessages = {
-        ("player",   "Warrior"): "Your Mugwump beats Warrior",
-        ("player",   "Mugwump"):  "Your Mugwump beats Mugwump",
-        ("player",   "Druid"):  "Your Mugwump beats Druid",
-        ("player",   "Salamanda"):  "Your Mugwump beats Salamanda",
-        ("player",   "Wizard"):  "Your Mugwump beats Wizard",
-        ("computer", "Warrior"): "Your Mugwump loses to Warrior",
-        ("computer", "Mugwump"):  "Your Mugwump loses to Mugwump",
-        ("computer", "Druid"):  "Your Mugwump loses to Druid",
-        ("computer", "Salamanda"):  "Your Mugwump loses to Salamanda",
-        ("computer", "Wizard"):  "Your Mugwump loses to Wizard",
+        ("player",   "Warrior"): "You chose the path of evil -- and it paid off. You have vanquished the valiant warrior.  A meal of villagers awaits you.",
+        ("player",   "Mugwump"):  "Two mugwumps clashed in the dark and you proved the mightier beast.  You feast on your fallen rival, while the villagers cower in fear, awaiting their fate.",
+        ("player",   "Druid"):  "You, a merciless beast, are a force of nature the druids cannot contain.  You feast on druid for lunch, giving thanks their Vegan lifestyle produces such excellent flavor.",
+        ("player",   "Salamanda"):  "Two beasts clashed and you were the strongest.  Then you remember salamandas do not taste good.",
+        ("player",   "Wizard"):  "They tried to tame the beast with spells and illusions.  Instead, they disappeared into your belly.",
+        ("computer", "Warrior"): "You chose to play the monster, but good still triumphed.  Villagers have little to be thankful for but for today, they are thankful to be alive.",
+        ("computer", "Mugwump"):  "You chose the way of the monster and met a heinous fate.  No one will remember you or this battle.",
+        ("computer", "Druid"):  "Nature is a powerful force and Druids are masters of that force. You have no choice but to leave, with nothing but a handful of locusts to satiate your hunger.",
+        ("computer", "Salamanda"):  "You tangled with a salamanda and lost on purpose.  Salamandas do not taste good.",
+        ("computer", "Wizard"):  "The powers of this wizard were too much for you.  Magic burns and creates scars you never forget.",
     }
 
     def __init__(self, isplayer): # for homework 4 #, aiController:bool):

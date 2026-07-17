@@ -22,6 +22,8 @@
 from warrior import Warrior
 from mugwump import Mugwump
 from druid import Druid
+from salamanda import Salamanda
+#from wizard import Wizard
 from character import Character
 from die import Die
 
@@ -31,9 +33,11 @@ d10 = Die(10)
 def main():  # not testable
     """Run the Battle Simulator 3000 game loop."""
     keep_playing = True
+    turns = 1
 
     while keep_playing:
-        intro()
+        intro(turns)
+        turns = turns + 1
 
         # let the user decide what the player and the computer each are;
         # any of the four combinations is possible
@@ -58,37 +62,73 @@ def main():  # not testable
                 victory(player, computer, victor)
                 keep_playing = playagain()
 
-    print("Thank you for playing Battle Simulator 3000!")
+    print("\nThank you for playing Battle Simulator 3000!")
 
-def intro():  # not testable
+def intro(turns):  # not testable
     """Display the introduction and rules of the game."""
-    print("Welcome to Battle Simulator 3000! The world's most low-tech battle simulator!\n"
-          "Valiant Warriors, Neutral Druids, and Evil Mugwumps face off in epic combat.\n"
-          "You choose what the player and the computer each fight as,\n"
-          "then trade blows until only one stands.\n"
-          "\nThe Warrior swings a Trusty Sword (2d8) or raises a Shield of Light (1d4).\n"
-          "The Mugwump rends with Razor-Sharp Claws (2d6), bites with Fangs of Death (3d6),\n"
-          "or licks its wounds to heal.\n"
-          "The Druid summons a swarm of locusts (2d6), swings a might oak club (2d4),\n"
-          "or heals through natural medicines.\n")
+
+    # Just because it's low tech doesn't mean it can't have a little ASCII art style.
+    oldskooltitlescreen = r"""
+    ==============================================================================
+                        ______  ___ _____ _____ _      _____
+                        | ___ \/ _ \_   _|_   _| |    |  ___|
+                        | |_/ / /_\ \| |   | | | |    | |__
+                        | ___ \  _  || |   | | | |    |  __|
+                        | |_/ / | | || |   | | | |____| |___
+                        \____/\_| |_/\_/   \_/ \_____/\____/
+
+                _____ ________  ____   _ _       ___ _____ ___________
+               /  ___|_   _|  \/  | | | | |     / _ \_   _|  _  | ___ \
+               \ `--.  | | | .  . | | | | |    / /_\ \| | | | | | |_/ /
+                `--. \ | | | |\/| | | | | |    |  _  || | | | | |    /
+               /\__/ /_| |_| |  | | |_| | |____| | | || | \ \_/ / |\ \
+               \____/ \___/\_|  |_/\___/\_____/\_| |_/\_/  \___/\_| \_|
+
+                              _____  _____  _____  _____
+                             |____ ||  _  ||  _  ||  _  |
+                                 / /| |/' || |/' || |/' |
+       o==[]::::::::::::::>      \ \|  /| ||  /| ||  /| |  <::::::::::::::[]==o
+                             .___/ /\ |_/ /\ |_/ /\ |_/ /
+                             \____/  \___/  \___/  \___/
+
+                 Warriors * Druids * Mugwumps * Salamandas * Wizards
+                    ~ The World's Most Low-Tech Battle Simulator ~
+    =============================================================================="""
+
+    if turns == 1:
+        print(f"{oldskooltitlescreen}")
+        print("Valiant Warriors, Neutral Druids, Slippery Salamanda, Powerful Wizards, and Evil Mugwumps face off in epic combat.")
+
+    print("\nYou choose what the player and the computer each fight as, then trade blows until only one stands.\n\n"
+          "The Characters:\n"
+          "The Warrior swings a Trusty Sword (2d8) or raises a Shield of Light (1d4).\n"
+          "The Druid summons a swarm of locusts (2d6), swings a might oak club (2d4), or heals through natural medicines.\n"
+          "The Salamanda smacks with its large tail (20), spits a slime ball (2d6), or sheds its skin to heal over two rounds.\n"
+          "The Wizard burns with a firebolt spell (1d12), casts bonechill (3d6), or heals through magical means.\n")
 
 
 def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
     """Ask which character type to use for a role and return the new combatant."""
     choice = 0
-    while choice <= 0 or choice > 2:
+    while choice <= 0 or choice > 5:
         choice = int(input(f"Choose the {rolename} character:\n"
                            "1. Warrior\n"
                            "2. Druid\n"
                            "3. Mugwump\n"
+                           "4. Salamanda\n"
+                           "5. Wizard\n"
                            "Enter choice: "))
 
     if choice == 1:
         return Warrior(isplayer)
     elif choice == 2:
         return Druid(isplayer)
-    else:
+    elif choice == 3:
         return Mugwump(isplayer)
+    elif choice == 4:
+        return Salamanda(isplayer)
+#    else:
+#        return Wizard(isplayer)
 
 def battle(player: Character, computer: Character) -> str:  # not testable (randomness + I/O)
     """Individual round of combat.  Returns 'player' or 'computer' if they are the victor otherwise it returns 'none'."""
@@ -97,7 +137,7 @@ def battle(player: Character, computer: Character) -> str:  # not testable (rand
 
     # Player first
     if (currentinitiative == 1):
-        print("The player attacks first!")
+        print("\nThe player attacks first!")
         resolveturn(player, computer)
         if (computer.hitpoints <= 0):
             return "player"
@@ -106,7 +146,7 @@ def battle(player: Character, computer: Character) -> str:  # not testable (rand
             return "computer"
     # Computer first
     else:
-        print("The computer attacks first!")
+        print("\nThe computer attacks first!")
         resolveturn(computer, player)
         if (player.hitpoints <= 0):
             return "computer"
@@ -129,8 +169,8 @@ def resolveturn(attacker: Character, defender: Character) -> None:  # not testab
 
 def report(player: Character, computer: Character) -> None:  # not testable
     """Report the current hit points of both combatants."""
-    print(f"{type(player).__name__} HP: {player.hitpoints}")
-    print(f"{type(computer).__name__} HP: {computer.hitpoints}")
+    print(f"Player:  {type(player).__name__} HP: {player.hitpoints}")
+    print(f"Computer:  {type(computer).__name__} HP: {computer.hitpoints}")
 
 def initiative() -> int:  # testable (returns 1 or 2)
     """Roll for initiative.  If the player and computer tie then they re-roll. Return 1 for player otherwise 2 for computer."""
