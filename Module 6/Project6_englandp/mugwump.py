@@ -21,11 +21,11 @@ class Mugwump(Character):
         ("player",   "Druid"):  "You, a merciless beast, are a force of nature the druids cannot contain.  You feast on druid for lunch, giving thanks their Vegan lifestyle produces such excellent flavor.",
         ("player",   "Salamanda"):  "Two beasts clashed and you were the strongest.  Then you remember salamandas do not taste good.",
         ("player",   "Wizard"):  "They tried to tame the beast with spells and illusions.  Instead, they disappeared into your belly.",
-        ("computer", "Warrior"): "You chose to play the monster, but good still triumphed.  Villagers have little to be thankful for but for today, they are thankful to be alive.",
-        ("computer", "Mugwump"):  "You chose the way of the monster and met a heinous fate.  No one will remember you or this battle.",
-        ("computer", "Druid"):  "Nature is a powerful force and Druids are masters of that force. You have no choice but to leave, with nothing but a handful of locusts to satiate your hunger.",
-        ("computer", "Salamanda"):  "You tangled with a salamanda and lost on purpose.  Salamandas do not taste good.",
-        ("computer", "Wizard"):  "The powers of this wizard were too much for you.  Magic burns and creates scars you never forget.",
+        ("computer", "Warrior"): "You tried to drive away the monster, but to no avail.  Villagers have little to be thankful for, especially on days like today.  The kingdom weeps.",
+        ("computer", "Mugwump"):  "You met a monster and met a heinous fate.  No one will remember you or this battle.",
+        ("computer", "Druid"):  "You have lived your life to be in harmony with nature, only to have it cruelly turn on you with such a beast.",
+        ("computer", "Salamanda"):  "You ended up the meal of a mugwump.  You take little solace in the fact that you do not taste good.",
+        ("computer", "Wizard"):  "Your powers were no match.  Your spells did not stop you from being its next meal.",
     }
 
     def __init__(self, isplayer): # for homework 4 #, aiController:bool):

@@ -194,7 +194,7 @@ def victory(player: Character, computer: Character, victor: str) -> None:  # not
     else:
         winner, loser = computer, player
 
-    print(winner.defeats(loser, victory)) 
+    print(winner.defeats(loser, victor))
 
 def playagain() -> bool:  # testable
     """Ask whether to play again; return True for yes, False otherwise."""

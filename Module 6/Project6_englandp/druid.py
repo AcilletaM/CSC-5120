@@ -19,13 +19,13 @@ class Druid(Character):
         ("player",   "Warrior"): "Wisdom has triumphed over the blade.  Bards will sing songs of this day.",
         ("player",   "Mugwump"):  "You have confronted the wildling and it is the one who ran off in fear.  The others will look upon you with wonder.",
         ("player",   "Druid"):  "Two spiritual Druids, clashing to show who loves their goddess most.  You have earned her blessing. Your opponent breaks down in tears, spirit broken.",
-        ("player",   "Salamanda"):  "You, a man of nature, has exerted your influence over the lowly salamanda.  You watch as it slithers off into the underbrush.",
+        ("player",   "Salamanda"):  "You, a man of nature, have exerted your influence over the lowly salamanda.  You watch as it slithers off into the underbrush.",
         ("player",   "Wizard"):  "True belief can expose those who hope to deceive through simple parlor tricks.  Begone trickster!",
-        ("computer", "Warrior"): "On this day it was brawn over brains as the mighty warrior has smite thee.",
-        ("computer", "Mugwump"):  "Beasts!  You have lived your life to be in harmony with nature, only to have it cruelly turn on you with such a beast.",
+        ("computer", "Warrior"): "On this day it was brains over brawn as the mighty warrior was the smitee.",
+        ("computer", "Mugwump"):  "You wanted lunch!  You have no choice but to leave, with nothing but a handful of locusts to satiate your hunger.",
         ("computer", "Druid"):  "Two kindly Druids, instead of helping each other, tried to curry favor more than the other, and you didn't do enough.  Your faith is shaken.",
-        ("computer", "Salamanda"):  "A freak of nature most foul has defeated a lover of nature.  Such cruel irony.",
-        ("computer", "Wizard"):  "Magic clashed with belief and magic won out.  The wizard's next trick was making you disappear.",
+        ("computer", "Salamanda"):  "A lover of nature has defeated a freak of nature most foul.  Life is hard.",
+        ("computer", "Wizard"):  "Magic clashed with belief and belief won out.  Your next trick was making yourself disappear.",
     }
 
     def __init__(self, isplayer):
