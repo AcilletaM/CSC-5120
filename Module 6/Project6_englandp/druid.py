@@ -16,16 +16,16 @@ from die import Die
 class Druid(Character):
     """Timid person of nature looking to restore balance to a chaotic world.  Can be controlled by the player or AI."""
     winmessages = {
-        ("player",   "Warrior"): "Your Druid beats Warrior",
-        ("player",   "Mugwump"):  "Your Druid beats Mugwump",
+        ("player",   "Warrior"): "Wisdom has triumphed over the blade.  Bards will sing songs of this day.",
+        ("player",   "Mugwump"):  "You have confronted the wildling and it is the one who ran off in fear.  The others will look upon you with wonder.",
         ("player",   "Druid"):  "Two spiritual Druids, clashing to show who loves their goddess most.  You have earned her blessing. Your opponent breaks down in tears, spirit broken.",
-        ("player",   "Salamanda"):  "Your Druid beats Salamanda",
-        ("player",   "Wizard"):  "Your Druid beats Wizard",
-        ("computer", "Warrior"): "Your Druid loses to Warrior",
-        ("computer", "Mugwump"):  "Your Druid loses to Mugwump",
+        ("player",   "Salamanda"):  "You, a man of nature, have exerted your influence over the lowly salamanda.  You watch as it slithers off into the underbrush.",
+        ("player",   "Wizard"):  "True belief can expose those who hope to deceive through simple parlor tricks.  Begone trickster!",
+        ("computer", "Warrior"): "On this day it was brains over brawn as the mighty warrior was the smitee.",
+        ("computer", "Mugwump"):  "You wanted lunch!  You have no choice but to leave, with nothing but a handful of locusts to satiate your hunger.",
         ("computer", "Druid"):  "Two kindly Druids, instead of helping each other, tried to curry favor more than the other, and you didn't do enough.  Your faith is shaken.",
-        ("computer", "Salamanda"):  "Your Druid loses to Salamanda",
-        ("computer", "Wizard"):  "Your Druid loses to Wizard",
+        ("computer", "Salamanda"):  "A lover of nature has defeated a freak of nature most foul.  Life is hard.",
+        ("computer", "Wizard"):  "Magic clashed with belief and belief won out.  Your next trick was making yourself disappear.",
     }
 
     def __init__(self, isplayer):

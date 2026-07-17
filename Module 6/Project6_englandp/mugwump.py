@@ -16,16 +16,16 @@ from die import Die
 class Mugwump(Character):
     """Fierce Mugwump looking for a fight.  Can be controlled by the player or AI."""
     winmessages = {
-        ("player",   "Warrior"): "Your Mugwump beats Warrior",
-        ("player",   "Mugwump"):  "Your Mugwump beats Mugwump",
-        ("player",   "Druid"):  "Your Mugwump beats Druid",
-        ("player",   "Salamanda"):  "Your Mugwump beats Salamanda",
-        ("player",   "Wizard"):  "Your Mugwump beats Wizard",
-        ("computer", "Warrior"): "Your Mugwump loses to Warrior",
-        ("computer", "Mugwump"):  "Your Mugwump loses to Mugwump",
-        ("computer", "Druid"):  "Your Mugwump loses to Druid",
-        ("computer", "Salamanda"):  "Your Mugwump loses to Salamanda",
-        ("computer", "Wizard"):  "Your Mugwump loses to Wizard",
+        ("player",   "Warrior"): "You chose the path of evil -- and it paid off. You have vanquished the valiant warrior.  A meal of villagers awaits you.",
+        ("player",   "Mugwump"):  "Two mugwumps clashed in the dark and you proved the mightier beast.  You feast on your fallen rival, while the villagers cower in fear, awaiting their fate.",
+        ("player",   "Druid"):  "You, a merciless beast, are a force of nature the druids cannot contain.  You feast on druid for lunch, giving thanks their Vegan lifestyle produces such excellent flavor.",
+        ("player",   "Salamanda"):  "Two beasts clashed and you were the strongest.  Then you remember salamandas do not taste good.",
+        ("player",   "Wizard"):  "They tried to tame the beast with spells and illusions.  Instead, they disappeared into your belly.",
+        ("computer", "Warrior"): "You tried to drive away the monster, but to no avail.  Villagers have little to be thankful for, especially on days like today.  The kingdom weeps.",
+        ("computer", "Mugwump"):  "You met a monster and met a heinous fate.  No one will remember you or this battle.",
+        ("computer", "Druid"):  "You have lived your life to be in harmony with nature, only to have it cruelly turn on you with such a beast.",
+        ("computer", "Salamanda"):  "You ended up the meal of a mugwump.  You take little solace in the fact that you do not taste good.",
+        ("computer", "Wizard"):  "Your powers were no match.  Your spells did not stop you from being its next meal.",
     }
 
     def __init__(self, isplayer): # for homework 4 #, aiController:bool):

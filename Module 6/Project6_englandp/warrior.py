@@ -16,16 +16,16 @@ from die import Die
 class Warrior(Character):
     """Mighty fighter looking for adventure and treasure.  Can be controlled by the player or AI."""
     winmessages = {
-        ("player",   "Warrior"): "Your Warrior beats Warrior",
-        ("player",   "Mugwump"):  "Your Warrior beats Mugwump",
-        ("player",   "Druid"):  "Your Warrior beats Druid",
-        ("player",   "Salamanda"):  "Your Warrior beats Salamanda",
-        ("player",   "Wizard"):  "Your Warrior beats Wizard",
-        ("computer", "Warrior"): "Your Warrior loses to Warrior",
-        ("computer", "Mugwump"):  "Your Warrior loses to Mugwump",
-        ("computer", "Druid"):  "Your Warrior loses to Druid",
-        ("computer", "Salamanda"):  "Your Warrior loses to Salamanda",
-        ("computer", "Wizard"):  "Your Warrior loses to Wizard",
+        ("player",   "Warrior"): "Two valiant warriors, fighting for pride instead of principle.  Still you prevailed. Your opponent flees, forever branded a coward.",
+        ("player",   "Mugwump"):  "You, the valiant Warrior, have slain the evil Mugwump! The citizens cheer and lay out a feast -- the kingdom is saved (again)!",
+        ("player",   "Druid"):  "You, a valiant warrior, fighting for people not nature.  You have easily overcome the feeble druid. Your opponent runs away, cursing your name.",
+        ("player",   "Salamanda"):  "All manner of foul beasts roam this world.  Thank the old gods you are there to protect the weak and powerless.",
+        ("player",   "Wizard"):  "Everybody wants to be powerful but true power doesn't come from books, it comes from hard training and discipline.  You have put in the work and it shows.",
+        ("computer", "Warrior"): "Two valiant warriors turned on each other, and you broke.  You slink away branded a coward while the other claims a pyrrhic victory.",
+        ("computer", "Mugwump"):  "You chose to play the monster, but good still triumphed.  Villagers have little to be thankful for, but for today, they are thankful to be alive.",
+        ("computer", "Druid"):  "Nature is being destroyed by the thoughtless villagers, but their warrior has protected them. You must return to the woods to meditate with nature.",
+        ("computer", "Salamanda"):  "You thought this village would provide an easy meal.  Their warrior dissuaded you from that idea.",
+        ("computer", "Wizard"):  "The warrior has bested you, mocking your feeble defense as they smack you on the back of the head with their sword.  Pathetic.",
     }
 
     def __init__(self, isplayer):
