@@ -109,26 +109,106 @@ def intro(turns):  # not testable
 
 def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
     """Ask which character type to use for a role and return the new combatant."""
-    choice = 0
-    while choice <= 0 or choice > 5:
-        choice = int(input(f"Choose the {rolename} character:\n"
-                           "1. Warrior\n"
-                           "2. Druid\n"
-                           "3. Mugwump\n"
-                           "4. Salamanda\n"
-                           "5. Wizard\n"
+    temp_instance = None
+    extract_character_type = None
+    choice_select = 0
+    row_num = 1
+
+    while choice_select != 1 and choice_select != 2:
+        choice_select = int(input(f"Choose the {rolename} character, choose to load from existing characters OR define a new charater:\n"
+                           "1. Load from CSV\n"
+                           "2. Make New Character\n"
                            "Enter choice: "))
 
-    if choice == 1:
-        return Warrior(isplayer)
-    elif choice == 2:
-        return Druid(isplayer)
-    elif choice == 3:
-        return Mugwump(isplayer)
-    elif choice == 4:
-        return Salamanda(isplayer)
-#    else:
-#        return Wizard(isplayer)
+    if(choice_select == 1): #import an existing character
+        #allow saving of name, max hitpoints, and "class" meaning warrior/mugwump/etc, along with any of information needed
+        print(f"selected load {rolename} character from CSV file\n")
+        choice_csv = 0
+
+        import csv
+        with open('character_save_file.csv', newline='', encoding="utf-8-sig") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                print(f"{row_num}.)", "|| Character Name:", row["Character Name"], "|| Max Hitpoints:", row["Max Hitpoints"], "|| Class Type:", row["Class Type"], "\n")
+
+                row_num += 1
+
+        while choice_csv <= 0 or choice_csv > row_num:
+            choice_csv = int(input(f"Choose the {rolename} character:\n"
+            "Enter choice: "))
+
+        #set row equal to what the person just chose
+        row_num = 1
+        with open('character_save_file.csv', newline='', encoding="utf-8-sig") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                if row_num == choice_csv:
+                    extract_character_type = str(row["Class Type"])
+
+
+                    if extract_character_type == "Warrior":
+                        temp_instance = Warrior(isplayer)
+                    elif extract_character_type == "Druid":
+                        temp_instance = Druid(isplayer)
+                    elif extract_character_type == "Mugwump":
+                        temp_instance = Mugwump(isplayer)
+                    elif extract_character_type == "Salamanda":
+                        temp_instance = Salamanda(isplayer)
+                    else:
+                        temp_instance = Salamanda(isplayer)
+                        #temp_instance =  Wizard(isplayer)
+
+                    #make sure the temporary instance has hitpoints loaded from CSV file
+
+                    temp_instance.maxhitpoints = int(row["Max Hitpoints"])
+                    temp_instance.hitpoints = temp_instance.maxhitpoints
+                    temp_instance.name = row["Character Name"]
+                    print(f"loading character type: {extract_character_type}")
+                    print(f"loading hitpoints: {temp_instance.maxhitpoints}")
+                    print(f"loading name: {temp_instance.name}")
+
+                    return temp_instance
+
+                row_num += 1
+
+
+    else: #make a new character
+        print(f"selected create new {rolename} character \n")
+        choice = 0
+        name = "None"
+        while choice <= 0 or choice > 5:
+            choice = int(input(f"Choose the {rolename} character:\n"
+                               "1. Warrior\n"
+                               "2. Druid\n"
+                               "3. Mugwump\n"
+                               "4. Salamanda\n"
+                               "5. Wizard\n"
+                               "Enter choice: "))
+
+        while name == "None":
+            name = str(input(f"Enter a Name for the {rolename} character:\n"
+                               "Enter custom name: "))
+
+        if choice == 1:
+            temp_instance = Warrior(isplayer)
+
+        elif choice == 2:
+            temp_instance = Druid(isplayer)
+
+        elif choice == 3:
+            temp_instance = Mugwump(isplayer)
+            return Mugwump(isplayer)
+
+        elif choice == 4:
+
+            temp_instance = Salamanda(isplayer)
+
+        else:
+            temp_instance = Salamanda(isplayer)
+          #  temp_instance =  Wizard(isplayer)
+
+        temp_instance.name = name
+        return temp_instance
 
 def battle(player: Character, computer: Character) -> str:  # not testable (randomness + I/O)
     """Individual round of combat.  Returns 'player' or 'computer' if they are the victor otherwise it returns 'none'."""
@@ -169,8 +249,8 @@ def resolveturn(attacker: Character, defender: Character) -> None:  # not testab
 
 def report(player: Character, computer: Character) -> None:  # not testable
     """Report the current hit points of both combatants."""
-    print(f"Player:  {type(player).__name__} HP: {player.hitpoints}")
-    print(f"Computer:  {type(computer).__name__} HP: {computer.hitpoints}")
+    print(f"Player: {type(player).__name__} || HP: {player.hitpoints} || Name: {player.name}")
+    print(f"Computer:  {type(computer).__name__} ||  HP: {computer.hitpoints} || Name: {computer.name}")
 
 def initiative() -> int:  # testable (returns 1 or 2)
     """Roll for initiative.  If the player and computer tie then they re-roll. Return 1 for player otherwise 2 for computer."""
