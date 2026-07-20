@@ -22,7 +22,9 @@ from character import Character
 @pytest.fixture
 def druid():
     """Provide a fresh computer-controlled Druid for each test (fixture)."""
-    return Druid(False)
+
+    return Druid(False,"test")
+
 
 
 def testdruidisacharacter(druid):

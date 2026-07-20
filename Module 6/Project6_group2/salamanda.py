@@ -15,8 +15,24 @@ from die import Die
 
 class Salamanda(Character):
     """Slimy Salamanda looking to slither"""
+
+    winmessages = {
+        ("player",   "Warrior"): "The salamanda slurped the warrior for breakfast, eessssuuurrrpppp",
+        ("player",   "Mugwump"):  "another one bites the dust, and this time its the mugwump and not brian may",
+        ("player",   "Druid"):  "Druid, more like Sous vide, because the slamanda cooked him good in this battle",
+        ("player",   "Salamanda"):  "Two slithery slimes, there can only be one!",
+        ("player",   "Wizard"):  "I cast you away with my slimy tail, e-slimy-amous!!!",
+        ("computer", "Warrior"): "some consider AI warriors to be data centers, too bad they don't work when everything is covered in slime",
+        ("computer", "Mugwump"):  "the digital mugwump was overtaken by the salamanda, wump wump wumpppppp",
+        ("computer", "Druid"):  "the salamanda thought the 'Druid' was a 'Droid' and deflected the laser with with his lightsaber like tail for win. ",
+        ("computer", "Salamanda"):  "Real slime is always better than digital slime, the real slime wins",
+        ("computer", "Wizard"):  "The digital wizard tried to win with a spell made of ones and zeros, but it was not very effective!",
+    }
+
+
     def __init__(self, isplayer): # for homework 4 #, aiController:bool):
         super().__init__(isplayer)
+
 
         # slamanda-specific dice, the rest come from the Character class
         self.d6 = Die(6)
@@ -80,9 +96,5 @@ class Salamanda(Character):
                 #perform a full heal
                 damage = -1 * (self.maxhitpoints - self.hitpoints)
                 print(f"The Salamanda eats skin for {-1*damage}")
-
-
-
-            
 
         return damage

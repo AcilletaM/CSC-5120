@@ -21,6 +21,8 @@ class Character(ABC):
         self.d10 = Die(10)
         self.maxhitpoints = 0
         self.hitpoints = 0
+        self.name = "Hal 9000"
+
 
     def takedamage(self, amount):
         """Apply damage from the attack or the healing.  Either the attack takes the HP to 0 or the character is healed up to the max HP."""
