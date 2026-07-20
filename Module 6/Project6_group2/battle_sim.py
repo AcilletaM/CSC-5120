@@ -1,5 +1,7 @@
 # CSC 5120 Module 4 Project
 # Paul England
+# Andrew Davis
+# James Splingaire
 # Instructions
 # The goal of the fourth project is to review the concepts we have learned thus far. We will apply the concepts of
 # inheritance (also called duck typing) and testing to the Battle Sim example Lab we worked through in class. Your
@@ -22,10 +24,15 @@
 from warrior import Warrior
 from mugwump import Mugwump
 from druid import Druid
+
 from salamanda import Salamanda
-#from wizard import Wizard
+from wizard import Wizard
+
 from character import Character
 from die import Die
+
+
+import fileio
 
 # The dungeon master uses a 10-sided die to roll for initiative each round.
 d10 = Die(10)
@@ -60,12 +67,14 @@ def main():  # not testable
             if (victor != "none"):
                 report(player, computer)
                 victory(player, computer, victor)
+                fileio.save_data(player)
                 keep_playing = playagain()
 
     print("\nThank you for playing Battle Simulator 3000!")
 
 def intro(turns):  # not testable
     """Display the introduction and rules of the game."""
+
 
     # Just because it's low tech doesn't mean it can't have a little ASCII art style.
     oldskooltitlescreen = r"""
@@ -107,8 +116,10 @@ def intro(turns):  # not testable
           "The Wizard burns with a firebolt spell (1d12), casts bonechill (3d6), or heals through magical means.\n")
 
 
+
 def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
     """Ask which character type to use for a role and return the new combatant."""
+
     temp_instance = None
     extract_character_type = None
     choice_select = 0
@@ -210,6 +221,7 @@ def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
         temp_instance.name = name
         return temp_instance
 
+
 def battle(player: Character, computer: Character) -> str:  # not testable (randomness + I/O)
     """Individual round of combat.  Returns 'player' or 'computer' if they are the victor otherwise it returns 'none'."""
     # Roll for initiative
@@ -269,6 +281,7 @@ def initiative() -> int:  # testable (returns 1 or 2)
 
 def victory(player: Character, computer: Character, victor: str) -> None:  # not testable
     """Announce the winner, keeping in mind the player vs computer battle and the different combinations possible."""
+
     if victor == "player":
         winner, loser = player, computer
     else:

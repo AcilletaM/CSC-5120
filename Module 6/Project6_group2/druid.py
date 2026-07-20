@@ -15,6 +15,7 @@ from die import Die
 
 class Druid(Character):
     """Timid person of nature looking to restore balance to a chaotic world.  Can be controlled by the player or AI."""
+
     winmessages = {
         ("player",   "Warrior"): "Wisdom has triumphed over the blade.  Bards will sing songs of this day.",
         ("player",   "Mugwump"):  "You have confronted the wildling and it is the one who ran off in fear.  The others will look upon you with wonder.",
@@ -30,6 +31,7 @@ class Druid(Character):
 
     def __init__(self, isplayer):
         super().__init__(isplayer)
+
 
         # Druid-specific dice, the rest come from the Character class
         self.d8 = Die(8)

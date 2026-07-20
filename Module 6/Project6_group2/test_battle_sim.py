@@ -65,8 +65,8 @@ def testchoosecombatant(monkeypatch, userchoice, expectedtype, isplayer):
 
 def testtwocomputersfighttoafinish():
     """A full computer-vs-computer battle reaches a winner (integration smoke test)."""
-    player = Mugwump(False)
-    computer = Warrior(False)
+    player = Mugwump(False, "test")
+    computer = Warrior(False, "test")
     victor = "none"
     rounds = 0
     while victor == "none" and rounds < 10000:
@@ -91,8 +91,8 @@ def testtwocomputersfighttoafinish():
 )
 def testvictorymessage(capsys, playerclass, computerclass, victor, keyword):
     """victory prints the message matching the matchup and outcome (capsys + parameterize)."""
-    player = playerclass(True)
-    computer = computerclass(False)
+    player = playerclass(True, "test")
+    computer = computerclass(False, "test")
     battle_sim.victory(player, computer, victor)
     captured = capsys.readouterr()
     assert keyword in captured.out
@@ -101,6 +101,6 @@ def testvictorymessage(capsys, playerclass, computerclass, victor, keyword):
 @pytest.mark.parametrize("victor", ["player", "computer"])
 def testtwowarriorsbrandacoward(capsys, victor):
     """In a Warrior-vs-Warrior duel, someone is always branded a coward (capsys + parameterize)."""
-    battle_sim.victory(Warrior(True), Warrior(False), victor)
+    battle_sim.victory(Warrior(True, "test"), Warrior(False, "test"), victor)
     captured = capsys.readouterr()
     assert "coward" in captured.out

@@ -15,6 +15,7 @@ from die import Die
 
 class Mugwump(Character):
     """Fierce Mugwump looking for a fight.  Can be controlled by the player or AI."""
+
     winmessages = {
         ("player",   "Warrior"): "You chose the path of evil -- and it paid off. You have vanquished the valiant warrior.  A meal of villagers awaits you.",
         ("player",   "Mugwump"):  "Two mugwumps clashed in the dark and you proved the mightier beast.  You feast on your fallen rival, while the villagers cower in fear, awaiting their fate.",
@@ -30,6 +31,7 @@ class Mugwump(Character):
 
     def __init__(self, isplayer): # for homework 4 #, aiController:bool):
         super().__init__(isplayer)
+
 
         # Mugwump-specific dice, the rest come from the Character class
         self.d6 = Die(6)

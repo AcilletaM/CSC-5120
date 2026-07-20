@@ -33,6 +33,7 @@ class Salamanda(Character):
     def __init__(self, isplayer): # for homework 4 #, aiController:bool):
         super().__init__(isplayer)
 
+
         # slamanda-specific dice, the rest come from the Character class
         self.d6 = Die(6)
 
@@ -95,6 +96,5 @@ class Salamanda(Character):
                 #perform a full heal
                 damage = -1 * (self.maxhitpoints - self.hitpoints)
                 print(f"The Salamanda eats skin for {-1*damage}")
-
 
         return damage
