@@ -7,8 +7,8 @@ from die import Die
 
 class Wizard(Character):
     """Magical wizard.  Can be controlled by the player or AI."""
-    def __init__(self, isplayer, name): # for homework 4 #, aiController:bool):
-        super().__init__(isplayer, name)
+    def __init__(self, isplayer): # for homework 4 #, aiController:bool):
+        super().__init__(isplayer)
 
         # Wizard-specific dice, the rest come from the Character class
         self.d6 = Die(6)

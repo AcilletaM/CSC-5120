@@ -28,8 +28,8 @@ class Warrior(Character):
         ("computer", "Wizard"):  "The warrior has bested you, mocking your feeble defense as they smack you on the back of the head with their sword.  Pathetic.",
     }
 
-    def __init__(self, isplayer, name):
-        super().__init__(isplayer, name)
+    def __init__(self, isplayer):
+        super().__init__(isplayer)
 
         # Warrior-specific dice, the rest come from the Character class
         self.d8 = Die(8)

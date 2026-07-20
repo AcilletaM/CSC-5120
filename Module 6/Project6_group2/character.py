@@ -15,13 +15,13 @@ class Character(ABC):
     """Abstract base class shared by every combatant."""
     winmessages: dict[tuple[str, str], str] = {}
 
-    def __init__(self, isplayer, name="Hal 9000"):
+    def __init__(self, isplayer):
         self.isplayer = isplayer
         self.d20 = Die(20)
         self.d10 = Die(10)
         self.maxhitpoints = 0
         self.hitpoints = 0
-        self.name = name
+        self.name = "Hal 9000"
 
 
     def takedamage(self, amount):

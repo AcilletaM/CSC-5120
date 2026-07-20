@@ -67,7 +67,14 @@ def main():  # not testable
             if (victor != "none"):
                 report(player, computer)
                 victory(player, computer, victor)
-                fileio.save_data(player)
+
+
+
+
+                choice_save_player = input(f"Would you like to save player info for {type(player).__name__} (yes/no)? ")
+                if str.lower(choice_save_player) == "y" or str.lower(choice_save_player) == "yes":
+                    fileio.save_data(player)
+
                 keep_playing = playagain()
 
     print("\nThank you for playing Battle Simulator 3000!")
@@ -166,8 +173,7 @@ def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
                     elif extract_character_type == "Salamanda":
                         temp_instance = Salamanda(isplayer)
                     else:
-                        temp_instance = Salamanda(isplayer)
-                        #temp_instance =  Wizard(isplayer)
+                        temp_instance =  Wizard(isplayer)
 
                     #make sure the temporary instance has hitpoints loaded from CSV file
 
@@ -215,8 +221,7 @@ def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
             temp_instance = Salamanda(isplayer)
 
         else:
-            temp_instance = Salamanda(isplayer)
-          #  temp_instance =  Wizard(isplayer)
+            temp_instance =  Wizard(isplayer)
 
         temp_instance.name = name
         return temp_instance

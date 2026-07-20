@@ -10,9 +10,14 @@ def save_data(player):
     # name our csv file test, and open it for writing (w)
     # this creates the file if it doesn't exist
     # and the current code OVERWRITES a file if it does exist
-    csvfile = open('savedata.csv', 'w')
-    writer = csv.writer(csvfile)
 
-    writer.writerow(['Name', 'Class', 'Max Hit Points'])
-    writer.writerow([player.name, type(player).__name__, player.maxhitpoints])
-    csvfile.close()
+    with open('character_save_file.csv', mode='a', newline='') as csvfile:
+
+
+        writer = csv.writer(csvfile)
+
+        print(f"storing character details: || player name: {player.name} || player hitpoints: {player.maxhitpoints} || class type: {type(player).__name__} ")
+        writer.writerow([player.name, player.maxhitpoints, type(player).__name__])
+        csvfile.close()
+
+
