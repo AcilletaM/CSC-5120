@@ -1,9 +1,10 @@
-# CSC 5120 Module 4 Project
+# CSC 5120 Module 6 Project
 # Paul England
+# Andrew Davis
+# James Splingaire
+#
 # Instructions
-# The goal of the fourth project is to review the concepts we have learned thus far. We will apply the concepts of
-# inheritance (also called duck typing) and testing to the Battle Sim example Lab we worked through in class. Your
-# project will have several files.
+# The goal of the sixth project is to modify your Mugwump project from Module 4 with a group, using a Git repository to collaborate on the code.
 #
 # This file contains the definitions of the die class.  It contains the constructor, roll, and getCurrentValue
 # methods.  It is based on the file provided in class with tweaks.
