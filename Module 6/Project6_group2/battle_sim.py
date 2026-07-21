@@ -1,24 +1,31 @@
-# CSC 5120 Module 4 Project
-# Paul England
-# Andrew Davis
-# James Splingaire
+# CSC 5120 Module 6 Project
+# Paul England - Druid
+# Andrew Davis - Wizard
+# James Splingaire - Salamanda
+#
 # Instructions
-# The goal of the fourth project is to review the concepts we have learned thus far. We will apply the concepts of
-# inheritance (also called duck typing) and testing to the Battle Sim example Lab we worked through in class. Your
-# project will have several files.
+# The goal of the sixth project is to modify your Mugwump project from Module 4 with a group, using a Git repository to collaborate on the code.
+#
+# - You and a partners should create a GitHub repository, and add the professor as a third/additional member. Use GitHub username jonathonflynn
+# - You and your partners should decide whose Module 4 code to use as a base, and add that to the repository as an initial commit. You can use the main branch for everything.
+# - Perform a code cleanup/refactoring as needed.
+#   - and commit and push those changes
+#   - I strongly recommend using an abstract base class with @abstractmethod tags if using inheritance, see: https://docs.python.org/3/library/abc.html
+# - Design and code 3 or more new playable characters that will use inheritance (or a protocol) similar to the warrior and mugwump classes in Project 4.
+#   - New characters show follow the Protocol or inherit from the base class as was done in Project 4 with mugwump and warrior. Enforce protocols with isinstance in a test.
+#   - New characters should have at least 2 attacks and 1 heal
+#   - Also incorporate at least 1 other special ability, like charging up to make the next attack more powerful, or always hit, or having an attack that requires 2 or more turns to prepare, etc.
+#   - All characters should now have a name attribute, which the player can enter when they choose their character
+# - Design and code character saving functionality and allow the user to save their character at the end of the fight.
+#   - allow saving of name, max hitpoints, and "class" meaning warrior/mugwump/etc, along with any of information needed
+#   - I recommend using a CSV file, see: https://docs.python.org/3/library/csv.html
+#      - but you can also use JSON or plain text
+# - Allow the user to load a character from a save file instead of choosing to create a new one as part of the initial menu
+# - Each group member should be solely responsible for coding at least one of the new characters, and assist with the save/load code and other updates to the driver. Each group member should commit and push code they work on individually.
+# - Create/update tests for all functions, and include a test_classname for each class. The instructor may also provide some tests classes to use/test you code with.
+# - Submit a link to your repository when finished.
 #
 # This file is the driver file that handles the user interaction and the Character creation.
-# - Copy in the battlesim, die, mugwump, and warrior classes we worked on in class as a starting place.
-#   Based on what we learned in a class and the material on Canvas and in the book, add code to ensure your project
-#   satisfies all the requirements listed below.
-#   - 20 points: Choose whether you will use duck typing (Protocol) or base class  (Character parent class) for
-#     refactoring the mugwump and warrior classes. If using a protocol, enforce it with isinstance or function signature
-#     hints. The goal is to have use two object references player (player controlled) and computer(computer controlled),
-#     which can each be either a warrior or a mugwump, and then allow the user to play out the game in the same ways as
-#     they did before.
-#   - 30 points: Present the user with a choice for each of the two player objects *so it could be a player controlled
-#     warrior vs. an ai controlled mugwump, or two mugwumps, two warriors, player mugwump and ai warrior).
-# The game should play out the same once the user has made the initial choices about player types.
 
 # Bring in the class definitions
 from warrior import Warrior
@@ -118,11 +125,9 @@ def intro(turns):  # not testable
     print("\nYou choose what the player and the computer each fight as, then trade blows until only one stands.\n\n"
           "The Characters:\n"
           "The Warrior swings a Trusty Sword (2d8) or raises a Shield of Light (1d4).\n"
-          "The Druid summons a swarm of locusts (2d6), swings a might oak club (2d4), or heals through natural medicines.\n"
+          "The Druid summons a swarm of locusts (2d6), swings a might oak club (2d4), cause convulsions (30), or heals through natural medicines.\n"
           "The Salamanda smacks with its large tail (20), spits a slime ball (2d6), or sheds its skin to heal over two rounds.\n"
           "The Wizard burns with a firebolt spell (1d12), casts bonechill (3d6), or heals through magical means.\n")
-
-
 
 def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
     """Ask which character type to use for a role and return the new combatant."""
@@ -133,10 +138,12 @@ def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
     row_num = 1
 
     while choice_select != 1 and choice_select != 2:
-        choice_select = int(input(f"Choose the {rolename} character, choose to load from existing characters OR define a new charater:\n"
+            response = input(f"Choose the {rolename} character, choose to load from existing characters OR define a new charater:\n"
                            "1. Load from CSV\n"
                            "2. Make New Character\n"
-                           "Enter choice: "))
+                           "Enter choice: ")
+            if response.isdigit():
+                choice_select = int(response)
 
     if(choice_select == 1): #import an existing character
         #allow saving of name, max hitpoints, and "class" meaning warrior/mugwump/etc, along with any of information needed
@@ -148,12 +155,14 @@ def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
             reader = csv.DictReader(csvfile)
             for row in reader:
                 print(f"{row_num}.)", "|| Character Name:", row["Character Name"], "|| Max Hitpoints:", row["Max Hitpoints"], "|| Class Type:", row["Class Type"], "\n")
-
                 row_num += 1
 
-        while choice_csv <= 0 or choice_csv > row_num:
-            choice_csv = int(input(f"Choose the {rolename} character:\n"
-            "Enter choice: "))
+        num_characters = row_num - 1  # row_num was actually the number of characters in the file plus 1
+        while choice_csv <= 0 or choice_csv > num_characters:
+            response = input(f"Choose the {rolename} character:\n"
+            "Enter choice: ")
+            if response.isdigit():
+                choice_csv = int(response)
 
         #set row equal to what the person just chose
         row_num = 1
@@ -162,7 +171,6 @@ def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
             for row in reader:
                 if row_num == choice_csv:
                     extract_character_type = str(row["Class Type"])
-
 
                     if extract_character_type == "Warrior":
                         temp_instance = Warrior(isplayer)
@@ -176,7 +184,6 @@ def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
                         temp_instance =  Wizard(isplayer)
 
                     #make sure the temporary instance has hitpoints loaded from CSV file
-
                     temp_instance.maxhitpoints = int(row["Max Hitpoints"])
                     temp_instance.hitpoints = temp_instance.maxhitpoints
                     temp_instance.name = row["Character Name"]
@@ -187,45 +194,38 @@ def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
                     return temp_instance
 
                 row_num += 1
-
-
     else: #make a new character
         print(f"selected create new {rolename} character \n")
         choice = 0
         name = "None"
         while choice <= 0 or choice > 5:
-            choice = int(input(f"Choose the {rolename} character:\n"
+            response = input(f"Choose the {rolename} character:\n"
                                "1. Warrior\n"
                                "2. Druid\n"
                                "3. Mugwump\n"
                                "4. Salamanda\n"
                                "5. Wizard\n"
-                               "Enter choice: "))
+                               "Enter choice: ")
+            if response.isdigit():
+                choice = int(response)
 
         while name == "None":
             name = str(input(f"Enter a Name for the {rolename} character:\n"
                                "Enter custom name: "))
-
         if choice == 1:
             temp_instance = Warrior(isplayer)
-
         elif choice == 2:
             temp_instance = Druid(isplayer)
-
         elif choice == 3:
             temp_instance = Mugwump(isplayer)
-            return Mugwump(isplayer)
-
         elif choice == 4:
-
             temp_instance = Salamanda(isplayer)
-
         else:
             temp_instance =  Wizard(isplayer)
 
         temp_instance.name = name
-        return temp_instance
 
+        return temp_instance
 
 def battle(player: Character, computer: Character) -> str:  # not testable (randomness + I/O)
     """Individual round of combat.  Returns 'player' or 'computer' if they are the victor otherwise it returns 'none'."""
