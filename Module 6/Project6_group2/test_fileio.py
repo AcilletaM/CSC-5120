@@ -8,6 +8,8 @@
 # - Create/update tests for all functions, and include a test_classname for each class. The instructor may also provide some tests classes to use/test you code with.
 #
 # This file contains the tests of the fileio module.  We are testing:
+# - Saving to a file adds a row to the end.
+# - save_data can save a row to a file and then choosecombatant can read it immediately with no issues.
 
 # Load pytest, fileio, battle_sim, and the character classes.
 import pytest
