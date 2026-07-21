@@ -11,7 +11,7 @@ from character import Character
 @pytest.fixture
 def wizard():
     """Provide a fresh computer-controlled Wizard for each test (fixture)."""
-    return Wizard(False, "test")
+    return Wizard(False)
 
 
 def testwizardisacharacter(wizard):
