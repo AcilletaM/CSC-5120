@@ -5,6 +5,7 @@ import random
 import pytest
 from character import Character
 from salamanda import Salamanda
+from druid import Druid
 
 @pytest.fixture
 def my_salamanda():
@@ -84,3 +85,17 @@ def testprompt_for_attack(my_salamanda, monkeypatch):
         assert my_salamanda._promptforattack() in (1,2,3)
 
 
+def testwinmessagesexist():
+    """Validate a win message exists for each player/computer/opponent class combinations."""
+    for controller in ("player", "computer"):
+        for opponent in ("Warrior", "Mugwump", "Druid", "Salamanda", "Wizard"):
+            assert (controller, opponent) in Salamanda.winmessages
+
+def testdefeatsmessages(my_salamanda):
+    """Defeats finds the appropriate message for the matchup (fixture)."""
+    loser = Druid(False)
+    assert my_salamanda.defeats(loser, "player") == Salamanda.winmessages[("player", "Druid")]
+    assert my_salamanda.defeats(loser, "computer") == Salamanda.winmessages[("computer", "Druid")]
+    loser = Salamanda(False)
+    assert my_salamanda.defeats(loser, "player") == Salamanda.winmessages[("player", "Salamanda")]
+    assert my_salamanda.defeats(loser, "computer") == Salamanda.winmessages[("computer", "Salamanda")]
