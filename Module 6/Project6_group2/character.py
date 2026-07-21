@@ -1,7 +1,10 @@
 # CSC 5120 Module 6 Project
 # Paul England
+# Andrew Davis
+# James Splingaire
+#
 # Instructions
-# The goal of the sixth project is modify your Mugwump project from Module 4 with a group, using a Git repository to collaborate on the code.
+# The goal of the sixth project is to modify your Mugwump project from Module 4 with a group, using a Git repository to collaborate on the code.
 #
 # This file contains the definitions of the abstract character class.  It contains the constructor, takedamage, attack,
 # _promptforattack, _chooseaiattack, and _performattack methods.  It is based on the warrior and mugwump files provided

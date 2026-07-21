@@ -1,28 +1,32 @@
-# CSC 5120 Module 4 Project
+# CSC 5120 Module 6 Project
 # Paul England
+# Andrew Davis
+# James Splingaire
+#
 # Instructions
-# The goal of the fourth project is to review the concepts we have learned thus far. We will apply the concepts of
-# inheritance (also called duck typing) and testing to the Battle Sim example Lab we worked through in class. Your
-# project will have several files.
+# The goal of the sixth project is modify your Mugwump project from Module 4 with a group, using a Git repository to collaborate on the code.
 #
 # This file contains the tests of the Mugwump and Character classes.  We are testing:
 # - A new mugwump is created.
 # - A mugwump is a Character.
 # - The starting hp of a mugwump is in the expected range.
 # - The damage caused by a mugwump attack is in the expected range.
-# - The "AI" determins a valid attack for a mugwump attack.
+# - The "AI" determines a valid attack for a mugwump attack.
 # - The damage taken by a mugwump attack is in the expected range.
+# - There are win messages for every match-up combination.
+# - The Defeats method returns the valide win message.
 
-# Load pytest, Mugwump, and Character.
+# Load pytest, Mugwump, Salamanda, and Character.
 import pytest
 from mugwump import Mugwump
+from salamanda import Salamanda
 from character import Character
 
 
 @pytest.fixture
 def mugwump():
     """Provide a fresh computer-controlled Mugwump for each test (fixture)."""
-    return Mugwump(False, "test")
+    return Mugwump(False)
 
 
 def testmugwumpisacharacter(mugwump):
@@ -66,3 +70,19 @@ def testtakedamage(mugwump, starthp, maxhp, amount, expected):
     mugwump.hitpoints = starthp
     mugwump.takedamage(amount)
     assert mugwump.hitpoints == expected
+
+
+def testwinmessagesexist():
+    """Validate a win message exists for each player/computer/opponent class combinations."""
+    for controller in ("player", "computer"):
+        for opponent in ("Warrior", "Mugwump", "Druid", "Salamanda", "Wizard"):
+            assert (controller, opponent) in Mugwump.winmessages
+
+def testdefeatsmessages(mugwump):
+    """Defeats finds the appropriate message for the matchup (fixture)."""
+    loser = Mugwump(False)
+    assert mugwump.defeats(loser, "player") == Mugwump.winmessages[("player", "Mugwump")]
+    assert mugwump.defeats(loser, "computer") == Mugwump.winmessages[("computer", "Mugwump")]
+    loser = Salamanda(False)
+    assert mugwump.defeats(loser, "player") == Mugwump.winmessages[("player", "Salamanda")]
+    assert mugwump.defeats(loser, "computer") == Mugwump.winmessages[("computer", "Salamanda")]
