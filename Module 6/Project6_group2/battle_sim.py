@@ -44,7 +44,7 @@ import fileio
 # The dungeon master uses a 10-sided die to roll for initiative each round.
 d10 = Die(10)
 
-def main():  # not testable
+def main():
     """Run the Battle Simulator 3000 game loop."""
     keep_playing = True
     turns = 1
@@ -86,7 +86,7 @@ def main():  # not testable
 
     print("\nThank you for playing Battle Simulator 3000!")
 
-def intro(turns):  # not testable
+def intro(turns):
     """Display the introduction and rules of the game."""
 
 
@@ -129,7 +129,7 @@ def intro(turns):  # not testable
           "The Salamanda smacks with its large tail (20), spits a slime ball (2d6), or sheds its skin to heal over two rounds.\n"
           "The Wizard burns with a firebolt spell (1d12), casts bonechill (3d6), or heals through magical means.\n")
 
-def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
+def choosecombatant(rolename: str, isplayer: bool) -> Character:
     """Ask which character type to use for a role and return the new combatant."""
 
     temp_instance = None
@@ -147,19 +147,19 @@ def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
 
     if(choice_select == 1): #import an existing character
         #allow saving of name, max hitpoints, and "class" meaning warrior/mugwump/etc, along with any of information needed
-        print(f"selected load {rolename} character from CSV file\n")
+        print(f"These are the saved characters.  Please choose the character you want by number.\n")
         choice_csv = 0
 
         import csv
         with open('character_save_file.csv', newline='', encoding="utf-8-sig") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                print(f"{row_num}.)", "|| Character Name:", row["Character Name"], "|| Max Hitpoints:", row["Max Hitpoints"], "|| Class Type:", row["Class Type"], "\n")
+                print(f"{row_num}.)", "|| Character Name:", row["Character Name"], "|| Max Hitpoints:", row["Max Hitpoints"], "|| Class Type:", row["Class Type"])
                 row_num += 1
 
         num_characters = row_num - 1  # row_num was actually the number of characters in the file plus 1
         while choice_csv <= 0 or choice_csv > num_characters:
-            response = input(f"Choose the {rolename} character:\n"
+            response = input(f"Enter the {rolename} character:\n"
             "Enter choice: ")
             if response.isdigit():
                 choice_csv = int(response)
@@ -227,7 +227,7 @@ def choosecombatant(rolename: str, isplayer: bool) -> Character:  # testable
 
         return temp_instance
 
-def battle(player: Character, computer: Character) -> str:  # not testable (randomness + I/O)
+def battle(player: Character, computer: Character) -> str:
     """Individual round of combat.  Returns 'player' or 'computer' if they are the victor otherwise it returns 'none'."""
     # Roll for initiative
     currentinitiative = initiative()
@@ -254,7 +254,7 @@ def battle(player: Character, computer: Character) -> str:  # not testable (rand
     # if neither combatant is defeated, the battle rages on!
     return "none"
 
-def resolveturn(attacker: Character, defender: Character) -> None:  # not testable (randomness + I/O)
+def resolveturn(attacker: Character, defender: Character) -> None:
     """Resolve one attack by a Character. Either the defender will take damage or the attacker will heal."""
     damage = attacker.attack()
 
@@ -264,12 +264,12 @@ def resolveturn(attacker: Character, defender: Character) -> None:  # not testab
     else:
         attacker.takedamage(damage)
 
-def report(player: Character, computer: Character) -> None:  # not testable
+def report(player: Character, computer: Character) -> None:
     """Report the current hit points of both combatants."""
     print(f"Player: {type(player).__name__} || HP: {player.hitpoints} || Name: {player.name}")
     print(f"Computer:  {type(computer).__name__} ||  HP: {computer.hitpoints} || Name: {computer.name}")
 
-def initiative() -> int:  # testable (returns 1 or 2)
+def initiative() -> int:
     """Roll for initiative.  If the player and computer tie then they re-roll. Return 1 for player otherwise 2 for computer."""
     playerinitiative = d10.roll()
     computerinitiative = d10.roll()
@@ -284,7 +284,7 @@ def initiative() -> int:  # testable (returns 1 or 2)
         return 1
     return 2
 
-def victory(player: Character, computer: Character, victor: str) -> None:  # not testable
+def victory(player: Character, computer: Character, victor: str) -> None:
     """Announce the winner, keeping in mind the player vs computer battle and the different combinations possible."""
 
     if victor == "player":
@@ -294,7 +294,7 @@ def victory(player: Character, computer: Character, victor: str) -> None:  # not
 
     print(winner.defeats(loser, victor))
 
-def playagain() -> bool:  # testable
+def playagain() -> bool:
     """Ask whether to play again; return True for yes, False otherwise."""
     choice = input("Would you like to play again (yes/no)? ")
     if str.lower(choice) == "y" or str.lower(choice) == "yes":
