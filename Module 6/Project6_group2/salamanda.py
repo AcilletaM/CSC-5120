@@ -1,5 +1,5 @@
 # CSC 5120 Module 4 Project
-# Paul England
+# James Splingaire
 # Instructions
 # The goal of the fourth project is to review the concepts we have learned thus far. We will apply the concepts of
 # inheritance (also called duck typing) and testing to the Battle Sim example Lab we worked through in class. Your

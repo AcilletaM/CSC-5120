@@ -1,5 +1,4 @@
-# CSC 5120 Module 4 Project
-# Paul England
+# CSC 5120 Module 6 Project
 # Andrew Davis
 
 # Load pytest, Mugwump, and Character.
