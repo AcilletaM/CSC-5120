@@ -147,7 +147,7 @@ def choosecombatant(rolename: str, isplayer: bool) -> Character:
 
     if(choice_select == 1): #import an existing character
         #allow saving of name, max hitpoints, and "class" meaning warrior/mugwump/etc, along with any of information needed
-        print(f"These are the saved characters.  Please choose the character you want by number.\n")
+        print(f"You chose to retrieve a saved character for {rolename}. Please choose the character you want by number.\n")
         choice_csv = 0
 
         import csv
@@ -195,7 +195,7 @@ def choosecombatant(rolename: str, isplayer: bool) -> Character:
 
                 row_num += 1
     else: #make a new character
-        print(f"selected create new {rolename} character \n")
+        print(f"You chose to create a new character for {rolename}.\n")
         choice = 0
         name = "None"
         while choice <= 0 or choice > 5:
