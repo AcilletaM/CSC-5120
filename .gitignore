@@ -6,9 +6,15 @@ env/
 # PyCharm
 .idea/
 
+# VS Code
+.vscode/
+
 # Python bytecode
 __pycache__/
 *.py[cod]
+
+# pytest
+.pytest_cache/
 
 # Jupyter
 .ipynb_checkpoints/
