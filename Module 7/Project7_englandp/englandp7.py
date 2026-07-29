@@ -16,70 +16,88 @@
 #   - Which data structure is better at insertion, which is better at retrieval of the nth (7000th in our case) number?
 #   - Which would be better at deletion of the nth number? The 1st number?
 
-# Bring in the class definitons
-from vehicle import Car, Train, Plane
+# Load random, timer, and LinkedList.
+import random
+from timeit import default_timer as timer
+from linkedlist import LinkedList
 
-# Create the function that generates a list of vehicles based on user input.
-def addvehicles(vehiclelist):
-    """Creates a list of vehicles based on user inputs."""
-    keepgoing = True
+def main():
+    """Compare step counts and timing for a linked list versus a Python array."""
+    print("Linked List driver!\n")
 
-    while keepgoing:
-        print("1 - Add a car")
-        print("2 - Add a train")
-        print("3 - Add a plane")
-        print("4 - Exit")
+    # Generate the random numbers once so both structures store the same set.
+    randomnumbers = []
+    for loop in range(10000):
+        randomnumbers.append(random.randint(1, 1000000))
 
-        vehiclechoice = input("Enter the number of your choice (1-4): ")
+    print("Load the linked list with 10,000 random values.")
+    # Create the empty linked list.
+    mylinkedlist = LinkedList()
 
-        if vehiclechoice == "1":
-            fuelcapacity = float(input("Enter the fuel capacity of the car: "))
-            mpg = float(input("Enter the mpg of the car: "))
-            numberofpassengers = int(input("Enter the number of passengers of the car: "))
-            horsepower = int(input("Enter the horsepower of the car: "))
-            vehiclelist.append(Car(fuelcapacity, mpg, numberofpassengers, horsepower))
-        elif vehiclechoice == "2":
-            fuelcapacity = float(input("Enter the fuel capacity of the train: "))
-            mpg = float(input("Enter the mpg of the train: "))
-            numberofpassengers = int(input("Enter the number of passengers of the train: "))
-            railtype = input("Enter the rail type of the train: ")
-            vehiclelist.append(Train(fuelcapacity, mpg, numberofpassengers, railtype))
-        elif vehiclechoice == "3":
-            fuelcapacity = float(input("Enter the fuel capacity of the plane: "))
-            mpg = float(input("Enter the mpg of the plane: "))
-            numberofpassengers = int(input("Enter the number of passengers of the plane: "))
-            vehiclelist.append(Plane(fuelcapacity, mpg, numberofpassengers))
-        elif vehiclechoice == "4":
-            keepgoing = False
-        else:
-            print("Please enter a valid input.")
+    # Loop through the list of numbers and adding to the linked list.
+    totalsteps = 0
+    start = timer()
+    for number in randomnumbers:
+        mylinkedlist.append(number)
+        totalsteps += mylinkedlist.steps
+    end = timer()
 
-        print()
+    # Capture the final append's step count before any get() overwrites it.
+    finalappendsteps = mylinkedlist.steps
 
-    return vehiclelist
+    print(f"Time to add 10,000 numbers to a linked list: {end - start} seconds and {totalsteps} steps.")
+    print(f"The final append alone took {finalappendsteps} steps, essentially n, since it walks every node already in the list.")
 
-# Create the function that will print the range of the vehicles.
-def printvehicles(vehiclelist, debug):
-    """Prints the range of the vehicles in the list."""
-    for vehicle in vehiclelist:
-        if isinstance(vehicle, Car):
-            print(f"Car - Range:  {vehicle.getrange()} miles.")
-        elif isinstance(vehicle, Train):
-            print(f"Train - Range:  {vehicle.getrange()} miles.")
-        elif isinstance(vehicle, Plane):
-            print(f"Plane - Range:  {vehicle.getrange()} miles.")
-        else:
-            print("The vehicle type doesn't exist.")
+    print("Load the array with 10,000 random values.")
+    # Create the empty array.
+    myarray = []
 
-    if debug:
-        print("\nThese are the vehicles and their attributes in the list.")
-        for vehicle in vehiclelist:
-            print(vehicle)
+    start = timer()
+    # Loop through the list of numbers and adding to the array.
+    for number in randomnumbers:
+        myarray.append(number)
+    end = timer()
+    print(f"Time to add 10,000 numbers to an array: {end - start} seconds.")
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    VehicleList = []
-    Debug = True
+    print("In comparison, the linked list did about 50 million steps for the same 10,000 inserts the array did nearly instantly, which is why its load time is so much larger.")
 
-    addvehicles(VehicleList)
-    printvehicles(VehicleList, Debug)
+    # Pick a value we know is near the beginning of the batch.  I will use index value of 13.
+    knownvalue = randomnumbers[13]
+    print(f"\nRetrieve the known value {knownvalue} from index 13 of both structures.")
+
+    start = timer()
+    linkedlistnode = mylinkedlist.get(13)
+    end = timer()
+    totalsteps = mylinkedlist.steps
+    print(f"Linked list get(13): {end - start} seconds and {totalsteps} steps.  Value is {linkedlistnode.data}")
+
+    start = timer()
+    arrayvalue = myarray[13]
+    end = timer()
+    print(f"Array [13]: {end - start} seconds and 1 step.  Value is {arrayvalue}.")
+
+    print("This close to the head both structures should be near instant; the gap only opens deeper in the list.")
+
+    # NOTE!!!
+    # The instructions and the scoring rubric use 7000th number and 7000th index in different places.
+    # I will use index value of 6999 as 7000th number is used more.
+    knownvalue = randomnumbers[6999]
+    print(f"\nRetrieve the known value {knownvalue} from index 6999 of both structures.")
+
+    start = timer()
+    linkedlistnode = mylinkedlist.get(6999)
+    end = timer()
+    totalsteps = mylinkedlist.steps
+    print(f"Linked list get(6999): {end - start} seconds and {totalsteps} steps.  Value is {linkedlistnode.data}")
+
+    start = timer()
+    arrayvalue = myarray[6999]
+    end = timer()
+    print(f"Array [6999]: {end - start} seconds and 1 step.  Value is {arrayvalue}.")
+
+    print(f"Both structures returned the same value: {linkedlistnode.data == arrayvalue}")
+    print(f"This is where the separation becomes apparent: {totalsteps} steps for the linked list versus 1 for the array.")
+    print("\nIn comparison, retrieving by index from an array stays nearly constant at any position, while the linked list must walk the chain, so the gap grows as n increases.")
+
+if __name__ == "__main__":
+    main()
